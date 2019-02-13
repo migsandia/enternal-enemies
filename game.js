@@ -10,12 +10,19 @@ class Game{
   };
 
   startLoop() {
-    console.log('que comiencen los juegos del hambre');
+    console.log('que comien(cen los juegos del hambre');
+    this.player= new Player (this.canvas,3);
     const loop = () => {
+
+      if(Math.random()>0.97){
+        const y = Math.random() * this.canvas.height;
+        this.enemies.push(new Enemy(this.canvas,y));
+      };
+      this.checkAllCollisions();
       this.updateCanvas();
       this.clearCanvas();
       this.drawCanvas();
-      console.log('que comiencen los juegos del hambre');
+      
       //clear
       //draw
 
@@ -26,7 +33,11 @@ class Game{
   }
 
   updateCanvas(){
+    this.player.update();
+    this.enemies.forEach((enemy)=>{
+      enemy.update();
 
+    });
   };
 
   clearCanvas(){
@@ -34,6 +45,15 @@ class Game{
   };
 
   drawCanvas(){
+    this.player.draw();
+    this.enemies.forEach((enemy)=>{
+      enemy.draw();
 
+    });
   };
+
+  checkAllCollisions(){
+    this.player.checkScreen();
+
+  }
 }

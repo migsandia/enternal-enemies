@@ -17,7 +17,7 @@ const main = () => {
     const startButton=document.querySelector('button');
     startButton.addEventListener('click',buildGameScreen);
   };
-
+//--------------BUILD GAME SCREEEN
   const buildGameScreen = () => {
     const gameScreen = buildDom(`
       <section class="game-screen">
@@ -29,14 +29,30 @@ const main = () => {
 
     const canvasElement = document.querySelector('canvas');
 
-    canvasElement.setAttribute('with',width);
+    canvasElement.setAttribute('width',width);
     canvasElement.setAttribute('height',height);
 
-    setTimeout(buildGameOver, 3000);
+    
+      //event.code === 'ArrowUp' => setDirection =>
+      //event.code === 'ArrowDown' => setDirection()
+  
+
+    
+
+    //setTimeout(buildGameOver, 3000);
 
     const game =new Game(canvasElement);
 
     game.startLoop();
+
+    const setPlayerDirection = (event) => {
+      if (event.code === 'ArrowUp'){
+        game.player.setDirection(-1);
+      } else if (event.code === 'ArrowDown'){
+        game.player.setDirection(1);
+      }
+    };
+    document.addEventListener('keydown', setPlayerDirection);
   }
 
   const buildGameOver = () =>{
